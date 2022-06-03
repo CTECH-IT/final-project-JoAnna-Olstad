@@ -1,118 +1,76 @@
-// Put your JavaScript here
+var screen = 0;
+var y=-20;
+var x=200;
+var speed = 2;
+var score= 0;
+
 function setup() {
-    createCanvas(1000, windowWidth);
-  
+  createCanvas(750, 500);
+}
+
+function draw() {
+	if(screen == 0){
+    startScreen()
+  }else if(screen == 1){
+  	gameOn()
+  }else if(screen==2){
+  	endScreen()
+  }	
+}
+
+function startScreen(){
+		background(18,17,17)
+		fill(255)
+		textAlign(CENTER);
+		text('Speed Test', width / 2, height / 2)
+    text('Catch the ball with box', width / 2, height / 2 + 20)
+    text('Game over when ball hits ground', width / 2, height / 2 + 40)
+		text('click to start', width / 2, height / 2 + 60);
+		reset();
+}
+
+function gameOn(){
+	background(6, 10, 207)
+  text("score = " + score, 30,20)
+  ellipse(x,y,20,20)
+  rectMode(CENTER)
+  rect(mouseX,height-10,50,30)
+	y+= speed;
+  if(y>height){
+  	screen =2
+	 }
+  if(y>height-10 && x>mouseX-20 && x<mouseX+20){
+  	y=-20
+    speed+=1
+    score+= 1
   }
-  
-  function draw() {
-    background(500);
-    
-
-    //Red Stripes
-    rect(0, 900,windowWidth, 50);
-    fill(255,0,0)
-    rect(0, 700,windowWidth, 50);
-    fill(255,0,0)
-    rect(0, 600,windowWidth, 50);
-    fill(255,0,0)
-    rect(0, 500,windowWidth, 50);
-    fill(255,0,0)
-    rect(0, 400,windowWidth, 50);
-    fill(255,0,0)
-    rect(0, 300,windowWidth, 50);
-    fill(255,0,0)
-    
-    fill(255,0,0)
-    rect(250, 0,windowWidth*.68, 50);
-    fill(255,0,0)
-    rect(250, 200,windowWidth*.68, 50);
-    fill(255,0,0)
-    rect(250, 100,windowWidth*.68, 50 );
-    fill(255,0,0)
-    
-
-    //Blue background behind stars
-    fill(9,0,255)
-    rect(0,0,533,300)
-  
-
-    //Stars
-    fill(128,128,128)
-
-
-    //Row 1
-    rect(0,0,41,33)
-    rect(82,0,41,33)
-    rect(164,0,41,33)
-    rect(246,0,41,33)
-    rect(328,0,41,33)
-    rect(410,0,41,33)
-    rect(492,0,41,33)
-    //Row 2
-    rect(41,33,41,33)
-    rect(123,33,41,33)
-    rect(205,33,41,33)
-    rect(287,33,41,33)
-    rect(369,33,41,33)
-    rect(451,33,41,33)
-    //Row 3
-    rect(0,66,41,33)
-    rect(82, 66,41,33)
-    rect(164,66,41,33)
-    rect(246,66,41,33)
-    rect(328,66,41,33)
-    rect(410,66,41,33)
-    rect(492,66,41,33)
-    //Row 4
-    rect(41,99,41,33)
-    rect(123,99,41,33)
-    rect(205,99,41,33)
-    rect(287,99,41,33)
-    rect(369,99,41,33)
-    rect(451,99,41,33)
-    //Row 5
-    rect(0,132,41,33)
-    rect(82, 132,41,33)
-    rect(164,132,41,33)
-    rect(246,132,41,33)
-    rect(328,132,41,33)
-    rect(410,132,41,33)
-    rect(492,132,41,33)
-    //Row 6
-    rect(41,165,41,33)
-    rect(123,165,41,33)
-    rect(205,165,41,33)
-    rect(287,165,41,33)
-    rect(369,165,41,33)
-    rect(451,165,41,33)
-    //Row 7
-    rect(0,198,41,33)
-    rect(82, 198,41,33)
-    rect(164,198,41,33)
-    rect(246,198,41,33)
-    rect(328,198,41,33)
-    rect(410,198,41,33)
-    rect(492,198,41,33)
-    //Row 8
-    rect(41,231,41,33)
-    rect(123,231,41,33)
-    rect(205,231,41,33)
-    rect(287,231,41,33)
-    rect(369,231,41,33)
-    rect(451,231,41,33)
-    //Row 9
-    rect(0,264,41,33)
-    rect(82,264,41,33)
-    rect(164,264,41,33)
-    rect(246,264,41,33)
-    rect(328,264,41,33)
-    rect(410,264,41,33)
-    rect(492,264,41,33)
-    
-
-    //Pledge of allegiance text
-    textSize(50);
-    fill(10,10,10);
-    textWrap(WORD);
-    text('"I pledge allegiance to the Flag of the United States of America, and to the Republic for which it stands, one Nation under God, indivisible, with liberty and justice for all."',100, 300,700);
+	if(y==-20){
+  	pickRandom();
   }
+}
+
+function pickRandom(){
+	x= random(20,width-20)
+}
+
+function endScreen(){
+		background(250,2,47)
+		textAlign(CENTER);
+		text('GAME OVER', width / 2, height / 2)
+  	text("SCORE = " + score, width / 2, height / 2 + 20)
+		text('click to play again', width / 2, height / 2 + 40);
+}
+
+function mousePressed(){
+	if(screen==0){
+  	screen=1
+  }else if(screen==2){
+  	screen=0
+  }
+}
+
+function reset(){
+	  score=0;
+  	speed=2;
+  	y=-20;
+}
